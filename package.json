@@ -1,0 +1,30 @@
+{
+  "name": "meetuprisa",
+  "version": "0.1.0",
+  "description": "Realtime from the Database to the Client with RethinkDb, io.js & AngularJs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "RethinkDb",
+    "io.js",
+    "Angular.js"
+  ],
+  "author": "James Moore <james@knowthen.com>",
+  "license": "MIT",
+  "dependencies": {
+    "co": "^4.1.0",
+    "co-body": "^1.0.0",
+    "koa": "^0.16.0",
+    "koa-router": "^3.8.0",
+    "koa-static": "^1.4.8",
+    "marko": "^1.3.27",
+    "nodejs-websocket": "^1.2.0",
+    "request": "^2.51.0",
+    "rethinkdbdash": "^1.15.3",
+    "socket.io": "^1.3.2",
+    "socket.io-client": "^1.3.2",
+    "ws": "^0.7.1"
+  }
+}

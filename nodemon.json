@@ -1,0 +1,8 @@
+{
+  "verbose": false,
+  "ignore": [],
+  "ext": "js marko",
+  "execMap": {
+    "js": "node"
+  }
+}

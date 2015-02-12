@@ -1,0 +1,12 @@
+.epoch.my-colors {
+  .category#1 {
+    .line { stroke: red; }
+    .area, .dot { fill: red; }
+  }
+  .arc.category#1 path {
+    fill: red;
+  }
+  .bar.category#1 { 
+    fill: red;
+  }
+}
