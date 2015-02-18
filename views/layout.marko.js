@@ -14,7 +14,6 @@ module.exports = function create(__helpers) {
         "content": data.layoutContent
       },
       function() {
-        out.w('<p>default content</p>');
       });
 
     out.w('</div><div class="col-sm-6">');
@@ -25,7 +24,6 @@ module.exports = function create(__helpers) {
         "content": data.layoutContent
       },
       function() {
-        out.w('<p>default content</p>');
       });
 
     out.w('</div></div><div class="row"><div class="col-sm-6">');
@@ -36,7 +34,6 @@ module.exports = function create(__helpers) {
         "content": data.layoutContent
       },
       function() {
-        out.w('<p>default content</p>');
       });
 
     out.w('</div><div class="col-sm-6">');
@@ -47,7 +44,6 @@ module.exports = function create(__helpers) {
         "content": data.layoutContent
       },
       function() {
-        out.w('<p>default content</p>');
       });
 
     out.w('</div></div></div><div class="col-sm-4">');
@@ -58,9 +54,8 @@ module.exports = function create(__helpers) {
         "content": data.layoutContent
       },
       function() {
-        out.w('<p>default content</p>');
       });
 
-    out.w('</div></div><hr></div><script src="/lib/jquery/dist/jquery.min.js"></script><script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script><script src="/lib/holderjs/holder.js"></script><script>\n    Holder.add_theme(\'white\', { background:\'#fff\', foreground:\'#a7a7a7\', size:10 });\n  </script><script src="/vendor/angular/angular.js"></script><script src="/vendor/d3/d3.js"></script><script src="/vendor/epoch/epoch.min.js"></script><script src="/vendor/ng-epoch/ng-epoch.js"></script><script src="/vendor/angular-socket-io/socket.js"></script><script src="/socket.io/socket.io.js"></script><script src="/vendor/lodash/lodash.min.js"></script><script src="/js/app.js"></script><script src="/js/bindtable.js"></script></body></html>');
+    out.w('</div></div><hr></div><script src="/lib/jquery/dist/jquery.min.js"></script><script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script><script src="/vendor/angular/angular.js"></script><script src="/vendor/d3/d3.js"></script><script src="/vendor/epoch/epoch.min.js"></script><script src="/vendor/ng-epoch/ng-epoch.js"></script><script src="/vendor/angular-socket-io/socket.js"></script><script src="/socket.io/socket.io.js"></script><script src="/vendor/lodash/lodash.min.js"></script><script src="/js/app.js"></script><script src="/js/bindtable.js"></script></body></html>');
   };
 }

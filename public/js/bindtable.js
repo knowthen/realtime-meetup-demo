@@ -3,6 +3,64 @@
 
 var app = angular.module('realtime');
 
+/**
+  * Angular Service for binding with RethinkDB Table
+  * @param {String} tableName
+  * @param {Int}    rowLimit
+  * @param {Object} filter
+  * @returns {Object} tableBoundObject
+  *
+  * var myTable = BindTable('myTableName', 100, {isActive: true});
+  * $scope.rows = myTable.rows;
+  * myTable.add(newObject);
+  * myTable.update(record);
+  * myTable.delete(record);
+  */
+
+app.factory('BindTable', function($q, socket){
+  var sets = {};
+  function createSet(name, limit, filter){
+    limit = limit || 100;
+    filter = filter || {};
+    var set = {};
+    sets[name] = set;
+    set.name = name;
+    set.rows = [];
+
+    set.delete = deleteRecord(set, $q, socket);
+    set.add = addRecord(set, $q, socket);
+    set.update = updateRecord(set, $q, socket);
+
+    set.unbind = function(){
+      socket.emit('changes:end:' + name);
+      socket.removeListener(name + ':changes', changeHandler);
+      if(name in sets){
+        delete sets[name];
+      }
+    }
+    var message = {table: name, limit: limit, filter: filter};
+    socket.emit('changes:start', message);
+    socket.on('reconnect', function(){
+      socket.emit('changes:start', message);
+    });
+    socket.on(name + ':changes', changeHandler);
+
+    function changeHandler(change){
+      updateLocalRows(set, change)
+    }
+    return set;
+  }
+  function findOrCreateSet(name, limit, filter){
+    if(name in sets){
+      return sets[name];
+    }
+    else {
+      return createSet(name, limit, filter);
+    }
+  }
+  return findOrCreateSet
+});
+
 function deleteLocalRow(set, id){
   _.remove(set.rows, function(row){
     return row.id === id;
@@ -81,45 +139,5 @@ function updateRecord(set, $q, socket){
     return deffered.promise;
   }
 }
-
-app.factory('BindTable', function($q, socket){
-  var sets = {};
-  function createSet(name, limit, filter){
-    limit = limit || 100;
-    filter = filter || {};
-    var set = {};
-    sets[name] = set;
-    set.name = name;
-    set.rows = [];
-
-    set.delete = deleteRecord(set, $q, socket);
-    set.add = addRecord(set, $q, socket);
-    set.update = updateRecord(set, $q, socket);
-
-    set.unbind = function(){
-      socket.emit('changes:end:' + name);
-      socket.removeListener(name + ':changes', changeHandler);
-      if(name in sets){
-        delete sets[name];
-      }
-    }
-    socket.emit('changes:start', {table: name, limit: limit, filter: filter});
-    socket.on(name + ':changes', changeHandler);
-
-    function changeHandler(change){
-      updateLocalRows(set, change)
-    }
-    return set;
-  }
-  function findOrCreateSet(name, limit, filter){
-    if(name in sets){
-      return sets[name];
-    }
-    else {
-      return createSet(name, limit, filter);
-    }
-  }
-  return findOrCreateSet
-})
 
 })();

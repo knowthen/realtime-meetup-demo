@@ -1,10 +1,13 @@
 'use strict';
-let koa    = require('koa'),
-    router = require('koa-router'),
-    serve  = require('koa-static'),
-    marko  = require('marko'),
-    // r      = require('./util/dash'),
-    tessel = require('./tessel');
+let http      = require('http'),
+    koa       = require('koa'),
+    router    = require('koa-router'),
+    serve     = require('koa-static'),
+    marko     = require('marko'),
+    socketIo  = require('socket.io'),
+    tessel    = require('./tessel'),
+    alerts    = require('./alerts'),
+    realtime  = require('./realtime');
 
 let app, server, io;
 
@@ -19,12 +22,14 @@ app.get('/', function *(){
   this.type = 'text/html';
 });
 
-server = require('http').Server(app.callback());
+server = http.Server(app.callback());
 
-io = require('socket.io')(server);
+io = socketIo(server);
 
-require('./realtime').setup(io);
+tessel.listen();
 
-tessel();
+realtime.listen(io);
+
+alerts.start();
 
 server.listen(3000);

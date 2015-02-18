@@ -8,94 +8,106 @@ app.factory('socket', function(socketFactory){
 });
 // add alert controller
 app.controller('AlertCtrl', function($scope, BindTable){
-  var alertTable = BindTable('alert');
-  $scope.alerts = alertTable.rows;
+  var alertTable = BindTable('alertRule');
+  $scope.alertRules = alertTable.rows;
+  console.log(alertTable.rows);
   $scope.delete = alertTable.delete;
   $scope.add = function(record){
+    record.min = parseFloat(record.min);
+    record.max = parseFloat(record.max);
     alertTable.add(record)
       .then(function(){
         $scope.alert = {};
-      })
-  }    
+      });
+  }
 });
 
 app.controller('TemperatureCtrl', function($scope, socket){
+  var message;
   $scope.axes = ['left', 'right','bottom'];
   $scope.line = [{values: [{time: (new Date()).getTime() / 1000, y: 80}]}];
+  message = {table: 'temperature', limit: 1};
+  socket.emit('changes:start', message);
   socket.on('reconnect', function(){
-    socket.emit('changes:start', {table: 'temperature', limit: 1});
+    socket.emit('changes:start', message);
   });
-  socket.emit('changes:start', {table: 'temperature', limit: 1});
   socket.on('temperature:changes', function(data){
     var record;
     if(data.new_val){
       record = {
         time: data.new_val.createdAt,
-        y: data.new_val.temperature
+        y: data.new_val.measure
       };
       $scope.feed = [record];
+      $scope.lastValue = data.new_val.measure;
     }
   });
 });
 
 app.controller('LightCtrl', function($scope, socket){
+  var message;
   $scope.axes = ['left', 'right', 'bottom'];
-  $scope.line = [{values: [{time: (new Date()).getTime() / 1000, y: 0}]}];
+  $scope.line = [0];
+  message = {table: 'light', limit: 1};
+  socket.emit('changes:start', message);
   socket.on('reconnect', function(){
-    socket.emit('changes:start', {table: 'light', limit: 1});
+    socket.emit('changes:start', message);
   });
-  socket.emit('changes:start', {table: 'light', limit: 1});
   socket.on('light:changes', function(data){
     var record;
     if(data.new_val){
       record = {
         time: data.new_val.createdAt,
-        y: data.new_val.lightLevel
+        y: data.new_val.measure
       };
-      $scope.feed = [record];
+      $scope.feed = data.new_val.measure / 100.0;
+      $scope.lastValue = data.new_val.measure;
     }
   })
-
 });
 
 app.controller('HumidityCtrl', function($scope, socket){
+  var message;
   $scope.axes = ['left', 'right', 'bottom'];
   $scope.line = [{label: 'Humidity', values: [{time: (new Date()).getTime() / 1000, y: 0}]}];
+  message = {table: 'humidity', limit: 1};
+  socket.emit('changes:start', message);
   socket.on('reconnect', function(){
-    socket.emit('changes:start', {table: 'humidity', limit: 1});
+    socket.emit('changes:start', message);
   });
-  socket.emit('changes:start', {table: 'humidity', limit: 1});
   socket.on('humidity:changes', function(data){
     var record;
     if(data.new_val){
       record = {
         time: data.new_val.createdAt,
-        y: data.new_val.humidity
+        y: data.new_val.measure
       };
       $scope.feed = [record];
+      $scope.lastValue = data.new_val.measure;
     }
   })
-
 });
-// add sound controller
+
 app.controller('SoundCtrl', function($scope, socket){
+  var message;
   $scope.axes = ['left', 'right', 'bottom'];
   $scope.line = [{values: [{time: (new Date()).getTime() / 1000, y: 0}]}];
+  message = {table: 'sound', limit: 1};
+  socket.emit('changes:start', message);
   socket.on('reconnect', function(){
-    socket.emit('changes:start', {table: 'sound', limit: 1});
+    socket.emit('changes:start', message);
   });
-  socket.emit('changes:start', {table: 'sound', limit: 1});
   socket.on('sound:changes', function(data){
     var record;
     if(data.new_val){
       record = {
         time: data.new_val.createdAt,
-        y: data.new_val.soundLevel
+        y: data.new_val.measure
       };
       $scope.feed = [record];
+      $scope.lastValue = data.new_val.measure;
     }
   })
-
 });
 
 })();

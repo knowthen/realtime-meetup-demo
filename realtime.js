@@ -1,10 +1,8 @@
 'use strict';
 let r = require('./util/dash');
 
-function setup(io){
+function listen(io){
   io.on('connection', function(socket){
-    // let cursor;
-    // create delete handler
     socket.on('delete', function(data, cb){
       let table, id;
       table = data.table;
@@ -14,7 +12,6 @@ function setup(io){
         .delete()
         .run(cb);
     });
-    // create add handler
     socket.on('add', function(data, cb){
       let table, record;
       table = data.table;
@@ -32,7 +29,6 @@ function setup(io){
           }
         });
     });
-    // create update handler
     socket.on('update', function(data, cb){
       let table, id, record;
       table = data.table;
@@ -54,15 +50,20 @@ function setup(io){
         .filter(filter)
         .limit(limit)
         .changes()
-        .run({cursor: true}, handleCursor);
+        .run({cursor: true}, handleChange);
 
-      function handleCursor(err, cursor){
-        
-        if(cursor){
-          cursor.each(function(err, record){
-            socket.emit(table + ':changes', record);
-          });
+      function handleChange(err, cursor){
+        if(err){
+          console.log(err);
         }
+        else{
+          if(cursor){
+            cursor.each(function(err, record){
+              socket.emit(table + ':changes', record);
+            });
+          }
+        }
+        
         
         socket.on('disconnect', function(){
           if(cursor){
@@ -81,5 +82,5 @@ function setup(io){
 }
 
 module.exports = {
-  setup: setup
+  listen: listen
 }
