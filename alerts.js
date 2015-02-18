@@ -70,9 +70,10 @@ function start () {
       let alertRecords = yield findAlertRecords(table, lastMeasure, currentMeasure);
       for(let record of alertRecords){
         try{
+          currentMeasure = Math.round(currentMeasure * 100) / 100;
           smsResponse = yield sendSms(config.twilioNumber, 
             record.phone, 
-            table.toUpperCase() + ' ALERT!\nCurrent value: ' + Math.round(currentMeasure * 100) / 100;
+            table.toUpperCase() + ' ALERT!\nCurrent value: ' + currentMeasure);
         }
         catch(err){
           console.log(err);
