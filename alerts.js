@@ -34,7 +34,6 @@ function start () {
   }
 
   function findAlertRecords (table, lastMeasure, currentMeasure) {
-    console.log(table, lastMeasure, currentMeasure)
     return r.table('alertRule')
       .filter(function(row){
         return row('table').eq(table)
@@ -73,7 +72,7 @@ function start () {
         try{
           smsResponse = yield sendSms(config.twilioNumber, 
             record.phone, 
-            table.toUpperCase() + ' ALERT!\nCurrent value: ' + currentMeasure);
+            table.toUpperCase() + ' ALERT!\nCurrent value: ' + Math.round(currentMeasure * 100) / 100;
         }
         catch(err){
           console.log(err);

@@ -3,7 +3,7 @@
   <layout-put into='temperature'>
     <div class='chart-wrapper' ng-controller='TemperatureCtrl'>
       <div class='chart-title'>
-        Temperature {{lastValue}}° F
+        Temperature {{lastValue | number:1}}° F
       </div>
       <div class='chart-stage'>
           <epoch-live-line 
@@ -24,7 +24,7 @@
   <layout-put into='humidity'>
     <div class='chart-wrapper' ng-controller='HumidityCtrl'>
       <div class='chart-title'>
-        Humidity {{lastValue}}
+        Humidity {{lastValue | number:1}}
       </div>
       <div class='chart-stage'>
           <epoch-live-area 
@@ -44,7 +44,7 @@
   <layout-put into='light'>
     <div class='chart-wrapper' ng-controller='LightCtrl'>
       <div class='chart-title'>
-        Light {{lastValue}} 
+        Light {{lastValue | number:1}} 
       </div>
       <div class='chart-stage'>
           <epoch-gauge 
@@ -62,7 +62,7 @@
   <layout-put into='sound'>
     <div class='chart-wrapper'  ng-controller='SoundCtrl'>
       <div class='chart-title'>
-        Sound {{lastValue}}
+        Sound {{lastValue | number:1}}
       </div>
       <div class='chart-stage'>
           <epoch-live-bar 
