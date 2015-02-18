@@ -1,0 +1,2 @@
+# Realtime from the Database to the Client with RethinkDb, io.js & AngularJs
+This is source code for the demo app used in the talk http://www.meetup.com/Modesto-Scripting-Language-Meetup/events/219908868/
