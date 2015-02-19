@@ -21,7 +21,7 @@ module.exports = function create(__helpers) {
             "layout": _layout
           },
           function(out) {
-            out.w('<div class="chart-wrapper" ng-controller="TemperatureCtrl"><div class="chart-title">Temperature {{lastValue}}\u00b0 F</div><div class="chart-stage"><epoch-live-line class="chart1" chart-height="240" chart-data="line" chart-stream="feed" chart-axes="axes" chart-queue-size="1"></epoch-live-line></div><div class="chart-notes">Measures temperature from Tessel.</div></div>');
+            out.w('<div class="chart-wrapper" ng-controller="TemperatureCtrl"><div class="chart-title">Temperature {{lastValue | number:1}}\u00b0 F</div><div class="chart-stage"><epoch-live-line class="chart1" chart-height="240" chart-data="line" chart-stream="feed" chart-axes="axes" chart-queue-size="1"></epoch-live-line></div><div class="chart-notes">Measures temperature from Tessel.</div></div>');
           });
         _tag(out,
           marko_node_modules_marko_layout_put_tag,
@@ -30,7 +30,7 @@ module.exports = function create(__helpers) {
             "layout": _layout
           },
           function(out) {
-            out.w('<div class="chart-wrapper" ng-controller="HumidityCtrl"><div class="chart-title">Humidity {{lastValue}}</div><div class="chart-stage"><epoch-live-area class="chart2" chart-height="240" chart-data="line" chart-stream="feed" chart-axes="axes" chart-queue-size="1"></epoch-live-area></div><div class="chart-notes">Measures humidity from Tessel</div></div>');
+            out.w('<div class="chart-wrapper" ng-controller="HumidityCtrl"><div class="chart-title">Humidity {{lastValue | number:1}}</div><div class="chart-stage"><epoch-live-area class="chart2" chart-height="240" chart-data="line" chart-stream="feed" chart-axes="axes" chart-queue-size="1"></epoch-live-area></div><div class="chart-notes">Measures humidity from Tessel</div></div>');
           });
         _tag(out,
           marko_node_modules_marko_layout_put_tag,
@@ -39,7 +39,7 @@ module.exports = function create(__helpers) {
             "layout": _layout
           },
           function(out) {
-            out.w('<div class="chart-wrapper" ng-controller="LightCtrl"><div class="chart-title">Light {{lastValue}} </div><div class="chart-stage"><epoch-gauge gauge-value="feed" gauge-stream="feed" class="gauge-large"></epoch-gauge></div><div class="chart-notes">Measures light from Tessel</div></div>');
+            out.w('<div class="chart-wrapper" ng-controller="LightCtrl"><div class="chart-title">Light {{lastValue | number:1}} </div><div class="chart-stage"><epoch-gauge gauge-value="feed" gauge-stream="feed" class="gauge-large"></epoch-gauge></div><div class="chart-notes">Measures light from Tessel</div></div>');
           });
         _tag(out,
           marko_node_modules_marko_layout_put_tag,
@@ -48,7 +48,7 @@ module.exports = function create(__helpers) {
             "layout": _layout
           },
           function(out) {
-            out.w('<div class="chart-wrapper" ng-controller="SoundCtrl"><div class="chart-title">Sound {{lastValue}}</div><div class="chart-stage"><epoch-live-bar class="chart4" chart-height="240" chart-data="line" chart-stream="feed" chart-axes="axes" chart-queue-size="1"></epoch-live-bar></div><div class="chart-notes">Measures sound from Tessel</div></div>');
+            out.w('<div class="chart-wrapper" ng-controller="SoundCtrl"><div class="chart-title">Sound {{lastValue | number:1}}</div><div class="chart-stage"><epoch-live-bar class="chart4" chart-height="240" chart-data="line" chart-stream="feed" chart-axes="axes" chart-queue-size="1"></epoch-live-bar></div><div class="chart-notes">Measures sound from Tessel</div></div>');
           });
         _tag(out,
           marko_node_modules_marko_layout_put_tag,

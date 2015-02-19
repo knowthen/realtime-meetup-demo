@@ -81,24 +81,25 @@
 
   <layout-put into='alerts'>
 
-  <!-- Add Alert Controller -->
-    <div class='chart-wrapper' ng-controller='AlertCtrl'>
+  <!-- TODO: Add Alert Controller -->
+    <div class='chart-wrapper'>
       <div class='chart-title'>
         Alerts
       </div>
       <div class='chart-stage'>
           <div class='row'>
-          <!-- add angular submit handler -->
-            <form ng-submit='add(alert)'>
+            <!-- TODO: add angular submit handler -->
+            <form>
               <div class='col-xs-12'>
                 <h4>Add Alert Rule</h4>
               </div>
               <div class='col-xs-6 form-group'>
-              <!-- add angular model -->
-                <input ng-model='alert.phone' type='text' class='form-control' placeholder='Phone'>
+                <!-- TODO: add angular model -->
+                <input type='text' class='form-control' placeholder='Phone'>
               </div>
               <div class='col-xs-6 form-group'>
-                <select ng-model='alert.table' class='form-control'>
+                <!-- TODO: add angular model -->
+                <select class='form-control'>
                   <option value='temperature'>Temperature</option>
                   <option value='humidity'>Humidity</option>
                   <option value='light'>Light</option>
@@ -106,10 +107,12 @@
                 </select>
               </div>
               <div class='col-xs-6 form-group'>
-                <input ng-model='alert.min' type='text' class='form-control' placeholder='Min'>
+                <!-- TODO: add angular model -->
+                <input type='text' class='form-control' placeholder='Min'>
               </div>
               <div class='col-xs-6 form-group'>
-                <input ng-model='alert.max' type='text' class='form-control' placeholder='Max'>
+                <!-- TODO: add angular model -->
+                <input type='text' class='form-control' placeholder='Max'>
               </div>
               <div class='col-xs-12 form-group'>
                 <button type='submit' class='btn btn-default'>Add</button>
@@ -129,32 +132,20 @@
             </tr>
           </thead>
           <tbody>
+            <!-- TODO: iterate rules -->
             <tr>
               <td>209-555-555</td>
               <td>temperature</td>
               <td>40</td>
               <td>80</td>
               <td>
-                <!-- add delete click handler -->
+                <!-- TODO: add delete click handler -->
                 <button type='button' class='close'>
                   <span>×</span>
                 </button>
               </td>
             </tr>
-            <!-- Remove This -->
-            <tr ng-repeat='rule in alertRules'>
-              <td>{{rule.phone}}</td>
-              <td>{{rule.table}}</td>
-              <td>{{rule.min}}</td>
-              <td>{{rule.max}}</td>
-              <td>
-
-                <button type='button' class='close' ng-click='delete(rule)'>
-                  <span>×</span>
-                </button>
-              </td>
-            </tr>
-            <!-- End Remove -->
+            
             
           </tbody>
         </table>

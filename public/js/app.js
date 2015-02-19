@@ -6,21 +6,8 @@ var app = angular.module('realtime', ['ng.epoch', 'btford.socket-io']);
 app.factory('socket', function(socketFactory){
   return socketFactory();
 });
-// add alert controller
-app.controller('AlertCtrl', function($scope, BindTable){
-  var alertTable = BindTable('alertRule');
-  $scope.alertRules = alertTable.rows;
-  console.log(alertTable.rows);
-  $scope.delete = alertTable.delete;
-  $scope.add = function(record){
-    record.min = parseFloat(record.min);
-    record.max = parseFloat(record.max);
-    alertTable.add(record)
-      .then(function(){
-        $scope.alert = {};
-      });
-  }
-});
+// TODO: add alert controller
+
 
 app.controller('TemperatureCtrl', function($scope, socket){
   var message;

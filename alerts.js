@@ -33,30 +33,6 @@ function start () {
     }
   }
 
-  function findAlertRecords (table, lastMeasure, currentMeasure) {
-    return r.table('alertRule')
-      .filter(function(row){
-        return row('table').eq(table)
-                .and(
-                    row('max').lt(currentMeasure).and(row('max').ge(lastMeasure))
-                  .or(
-                    row('min').gt(currentMeasure).and(row('min').le(lastMeasure))
-                   )
-                );
-      }
-    ).run();
-  }
-
-  function sendSms(from, to, message){
-    to = to.replace(/\D/g,'');
-    if(to.length >= 9 && to.length <= 10){
-      return client.messages.create({
-        body: message,
-        to: to,
-        from: from});
-    }
-  }
-
   function checkAlert(table, field, record){
     let lastMeasure, currentMeasure, smsResponse;
     if(record && record.old_val)
@@ -84,6 +60,32 @@ function start () {
       console.log(err)
     });
   }
+
+  function findAlertRecords (table, lastMeasure, currentMeasure) {
+    return r.table('alertRule')
+      .filter(function(row){
+        return row('table').eq(table)
+                .and(
+                    row('max').lt(currentMeasure).and(row('max').ge(lastMeasure))
+                  .or(
+                    row('min').gt(currentMeasure).and(row('min').le(lastMeasure))
+                   )
+                );
+      }
+    ).run();
+  }
+
+  function sendSms(from, to, message){
+    to = to.replace(/\D/g,'');
+    if(to.length >= 9 && to.length <= 10){
+      return client.messages.create({
+        body: message,
+        to: to,
+        from: from});
+    }
+  }
+
+
 }
 module.exports = {
   start: start
