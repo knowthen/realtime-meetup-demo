@@ -7,21 +7,7 @@ app.factory('socket', function(socketFactory){
   return socketFactory();
 });
 // TODO: add alert controller
-app.controller('AlertCtrl', function($scope, BindTable){
-  var alertTable = BindTable('alertRule');
-  $scope.alertRules = alertTable.rows;
-  $scope.delete = alertTable.delete;
-  $scope.update = alertTable.update;
-  $scope.add = function(record){
-    record.min = parseFloat(record.min);
-    record.max = parseFloat(record.max);
-    alertTable.add(record)
-      .then(function(){
-        $scope.alert = {};
-      });
-  }
 
-});
 
 app.controller('TemperatureCtrl', function($scope, socket){
   var message;
